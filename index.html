@@ -1,20 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Kunal World</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{font-family:Arial;background:#0f2027;color:white;text-align:center;padding-top:80px}
-a{display:block;margin:15px auto;padding:14px;background:#00c9a7;color:white;text-decoration:none;width:220px;border-radius:8px}
-</style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>My Portfolio</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
 
-<h1>Kunal World</h1>
-<p>Welcome to my official website</p>
+    <header class="header">
+        <a href="#" class="logo">Kunal World.in</a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <span class="active-nav"></span>
+        </nav>
+    </header>
 
-<a href="mailto:support@kunalworld.in">📧 Email Support</a>
-<a href="https://www.instagram.com/__kunal_kumar">📷 Instagram</a>
+    <section class="home" id="home">
+        <div class="home-content">
 
+            <h1>Welcome to<span> Kunal world</span> </h1>
+
+            <div class="text-animate">
+                <h3>Nursing Student  Health Educator  Trader</h3>
+            </div>
+
+            <p>Hi, I'm Kunal Kumar
+
+                Nursing Student | Health Educator | Trader
+
+                I share simple health awareness and patient care knowledge, while also learning and practicing trading
+                with a focus on discipline and risk management.
+
+                Helping people grow in health and mindset.</p>
+
+            <div class="btn-box">
+                <a href="#" class="btn">Hire Me</a>
+                <a href="#" class="btn">Let's Talk</a>
+            </div>
+
+        </div>
+
+        <div class="home-sci">
+            <a href="https://www.facebook.com/kunalkumar21" target="_blank"><i class='bx bxl-facebook'></i></a>
+            <a href="https://www.instagram.com/__kunal_kumar" target="_blank"><i class='bx bxl-instagram'></i></a>
+            <a href="https://t.me/kunalji" target="_blank"><i class='bx bxl-telegram'></i></a>
+        </div>
+
+        <div class="home-imghover"></div>
+
+    </section>
+
+
+    <section class="about" id="about">
+
+        <h2 class="heading">About <span>Me</span></h2>
+
+        <div class="about-img">
+            <img src="kunal.jpg.jpeg" alt="">
+            <span class="circle-spin"></span>
+        </div>
+
+        <div class="about-content">
+            <h3>Nursing Student | Health Educator | Trader</h3>
+            <p>About Me (Registered Nurse & Trader)
+
+                I am Kunal Kumar, from india.
+
+                I am registered nurse contributing in patient care, health awareness and community education. I simplify
+                medical information so people can understand their health and follow preventive measures.
+
+                I am also a passionate trader with 3+ years of experience, focused on discipline, price action and risk
+                management.
+
+                My aim is to promote both health and financial awareness.
+            </p>
+
+            <div class="btn-box btns">
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="contact" id="contact">
+
+        <h2 class="heading">Contact <span>Me!</span></h2>
+        <form action="#">
+            <div class="input-box">
+
+                <div class="input-field">
+                    <input type="text" placeholder="Full Name" required>
+                    <span class="focus"></span>
+                </div>
+
+                <div class="input-field">
+                    <input type="email" placeholder="Email" required>
+                    <span class="focus"></span>
+                </div>
+            </div>
+
+            <div class="input-box">
+
+                <div class="input-field">
+                    <input type="number" placeholder="Mobile No." required>
+                    <span class="focus"></span>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" placeholder="Email Subject" required>
+                    <span class="focus"></span>
+                </div>
+            </div>
+
+            <div class="textarea-field">
+                <textarea name="" id="" cols="30" rows="10" placeholder="Your Message" required></textarea>
+                <span class="focus"></span>
+            </div>
+
+            <div class="btn-box btns">
+                <button type="submit" class="btn">Submit</button>
+            </div>
+        </form>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-text">
+            <p>© 2026 Kunal world.in . All rights reserved.</p>
+
+        </div>
+        <div class="footer-iconTop">
+            <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
 </body>
+
 </html>
