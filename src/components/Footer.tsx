@@ -34,16 +34,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="footer-section">
-          <h4 className="footer-title">Trading Markets</h4>
-          <ul className="footer-links">
-            <li>Major Forex Pairs</li>
-            <li>Gold (XAU/USD)</li>
-            <li>Silver (XAG/USD)</li>
-            <li>EUR/USD</li>
-            <li>GBP/USD</li>
-          </ul>
-        </div>
 
         <div className="footer-section">
           <h4 className="footer-title">Connect</h4>
