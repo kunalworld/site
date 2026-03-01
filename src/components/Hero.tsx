@@ -1,6 +1,51 @@
+import { useState, useEffect } from 'react'
 import './Hero.css'
 
+interface PriceData {
+  pair: string
+  price: number
+  change: number
+}
+
 const Hero = () => {
+  const [prices, setPrices] = useState<PriceData[]>([
+    { pair: "EUR/USD", price: 1.0856, change: 0.24 },
+    { pair: "GOLD", price: 2024.50, change: 0.68 },
+    { pair: "SILVER", price: 23.45, change: -0.12 }
+  ])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const fetchPrices = async () => {
+    try {
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/live-prices`
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.data) {
+          const displayPrices = data.data.filter((p: PriceData) =>
+            ['EUR/USD', 'GOLD', 'SILVER'].includes(p.pair)
+          )
+          setPrices(displayPrices)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching live prices:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchPrices()
+    const interval = setInterval(fetchPrices, 30000)
+    return () => clearInterval(interval)
+  }, [])
+
   const scrollToContact = () => {
     const element = document.getElementById('contact')
     if (element) {
@@ -58,22 +103,21 @@ const Hero = () => {
       <div className="hero-visual">
         <div className="trading-card">
           <div className="card-header">
-            <span className="market-status">Market Active</span>
+            <span className="market-status">{isLoading ? 'Loading...' : 'Market Active'}</span>
             <span className="live-indicator"></span>
           </div>
           <div className="trading-pairs">
-            <div className="pair">
-              <span className="pair-name">EUR/USD</span>
-              <span className="pair-value positive">1.0856 +0.24%</span>
-            </div>
-            <div className="pair">
-              <span className="pair-name">GOLD</span>
-              <span className="pair-value positive">2,024.50 +0.68%</span>
-            </div>
-            <div className="pair">
-              <span className="pair-name">SILVER</span>
-              <span className="pair-value negative">23.45 -0.12%</span>
-            </div>
+            {prices.map((priceData) => (
+              <div key={priceData.pair} className="pair">
+                <span className="pair-name">{priceData.pair}</span>
+                <span className={`pair-value ${priceData.change >= 0 ? 'positive' : 'negative'}`}>
+                  {priceData.pair.includes('/')
+                    ? priceData.price.toFixed(4)
+                    : priceData.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                  } {priceData.change >= 0 ? '+' : ''}{priceData.change}%
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
