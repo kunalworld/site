@@ -5,11 +5,16 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    website: ''
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (formData.website) {
+      return
+    }
 
     try {
       const response = await fetch('https://kunalworld.in/api/contact', {
@@ -25,7 +30,7 @@ const Contact = () => {
       })
 
       if (response.ok) {
-        setFormData({ name: '', email: '', message: '' })
+        setFormData({ name: '', email: '', message: '', website: '' })
         alert('Message sent successfully')
       } else {
         alert('Failed to send message. Please try again.')
@@ -121,6 +126,18 @@ const Contact = () => {
               rows={6}
               placeholder="Tell me about your trading goals and how I can help..."
             ></textarea>
+          </div>
+
+          <div className="honeypot">
+            <input
+              type="text"
+              id="website"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
           </div>
 
           <button type="submit" className="submit-button">
