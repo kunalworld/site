@@ -7,13 +7,32 @@ const Contact = () => {
     email: '',
     message: ''
   })
-  const [status, setStatus] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setStatus('Message sent! I will get back to you soon.')
-    setFormData({ name: '', email: '', message: '' })
-    setTimeout(() => setStatus(''), 5000)
+
+    try {
+      const response = await fetch('https://kunalworld.in/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      })
+
+      if (response.ok) {
+        setFormData({ name: '', email: '', message: '' })
+        alert('Message sent successfully')
+      } else {
+        alert('Failed to send message. Please try again.')
+      }
+    } catch (error) {
+      alert('Failed to send message. Please try again.')
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -107,8 +126,6 @@ const Contact = () => {
           <button type="submit" className="submit-button">
             Send Message
           </button>
-
-          {status && <div className="form-status">{status}</div>}
         </form>
       </div>
     </section>
