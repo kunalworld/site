@@ -14,24 +14,46 @@ const Hero = () => {
     { pair: "SILVER", price: 23.45, change: -0.12 }
   ])
   const [isLoading, setIsLoading] = useState(true)
+  const [prevPrices, setPrevPrices] = useState<{ [key: string]: number }>({})
 
   const fetchPrices = async () => {
     try {
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/live-prices`
-      const response = await fetch(apiUrl, {
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-      })
+      const response = await fetch('https://kunalworld.in/api/prices')
 
       if (response.ok) {
         const data = await response.json()
-        if (data.success && data.data) {
-          const displayPrices = data.data.filter((p: PriceData) =>
-            ['EUR/USD', 'GOLD', 'SILVER'].includes(p.pair)
-          )
-          setPrices(displayPrices)
-        }
+
+        const newPrices: PriceData[] = [
+          {
+            pair: "EUR/USD",
+            price: data.eurusd,
+            change: prevPrices['EUR/USD']
+              ? parseFloat(((data.eurusd - prevPrices['EUR/USD']) / prevPrices['EUR/USD'] * 100).toFixed(2))
+              : 0.24
+          },
+          {
+            pair: "GOLD",
+            price: data.gold,
+            change: prevPrices['GOLD']
+              ? parseFloat(((data.gold - prevPrices['GOLD']) / prevPrices['GOLD'] * 100).toFixed(2))
+              : 0.68
+          },
+          {
+            pair: "SILVER",
+            price: data.silver,
+            change: prevPrices['SILVER']
+              ? parseFloat(((data.silver - prevPrices['SILVER']) / prevPrices['SILVER'] * 100).toFixed(2))
+              : -0.12
+          }
+        ]
+
+        setPrevPrices({
+          'EUR/USD': data.eurusd,
+          'GOLD': data.gold,
+          'SILVER': data.silver
+        })
+
+        setPrices(newPrices)
       }
     } catch (error) {
       console.error('Error fetching live prices:', error)
@@ -42,7 +64,7 @@ const Hero = () => {
 
   useEffect(() => {
     fetchPrices()
-    const interval = setInterval(fetchPrices, 30000)
+    const interval = setInterval(fetchPrices, 10000)
     return () => clearInterval(interval)
   }, [])
 
