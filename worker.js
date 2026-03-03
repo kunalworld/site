@@ -17,16 +17,18 @@ export default {
 
     if (url.pathname === '/api/prices' && request.method === 'GET') {
       try {
-        const [metalsResponse, forexResponse] = await Promise.all([
-          fetch('https://api.metals.live/v1/spot'),
+        const [goldResponse, silverResponse, forexResponse] = await Promise.all([
+          fetch('https://api.gold-api.com/price/XAU'),
+          fetch('https://api.gold-api.com/price/XAG'),
           fetch('https://open.er-api.com/v6/latest/USD')
         ]);
 
-        const metalsData = await metalsResponse.json();
+        const goldData = await goldResponse.json();
+        const silverData = await silverResponse.json();
         const forexData = await forexResponse.json();
 
-        const gold = metalsData[0]?.price || 2024.50;
-        const silver = metalsData[1]?.price || 23.45;
+        const gold = goldData.price || 2024.50;
+        const silver = silverData.price || 23.45;
         const eurusd = forexData.rates?.EUR ? (1 / forexData.rates.EUR) : 1.0856;
 
         return new Response(
