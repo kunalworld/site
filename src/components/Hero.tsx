@@ -58,57 +58,46 @@ const Hero = () => {
       if (response.ok) {
         const data = await response.json()
 
-        const newPricesData = [
-          {
-            pair: "EUR/USD",
-            price: data.eurusd,
-            change: prevPrices['EUR/USD']
-              ? parseFloat(((data.eurusd - prevPrices['EUR/USD']) / prevPrices['EUR/USD'] * 100).toFixed(2))
-              : 0.24
-          },
-          {
-            pair: "GOLD",
-            price: data.gold,
-            change: prevPrices['GOLD']
-              ? parseFloat(((data.gold - prevPrices['GOLD']) / prevPrices['GOLD'] * 100).toFixed(2))
-              : 0.68
-          },
-          {
-            pair: "SILVER",
-            price: data.silver,
-            change: prevPrices['SILVER']
-              ? parseFloat(((data.silver - prevPrices['SILVER']) / prevPrices['SILVER'] * 100).toFixed(2))
-              : -0.12
-          }
-        ]
+        setPrices(currentPrices => {
+          return currentPrices.map(currentPrice => {
+            let newPriceValue: number
 
-        setPrevPrices({
-          'EUR/USD': data.eurusd,
-          'GOLD': data.gold,
-          'SILVER': data.silver
-        })
+            if (currentPrice.pair === "EUR/USD") {
+              newPriceValue = data.eurusd
+            } else if (currentPrice.pair === "GOLD") {
+              newPriceValue = data.gold
+            } else {
+              newPriceValue = data.silver
+            }
 
-        setPrices(prevPrices => {
-          return newPricesData.map(newPrice => {
-            const oldPrice = prevPrices.find(p => p.pair === newPrice.pair)
-            const oldValue = oldPrice?.displayPrice || newPrice.price
+            const oldPriceValue = prevPrices[currentPrice.pair] || currentPrice.price
+            const percentageChange = parseFloat(((newPriceValue - oldPriceValue) / oldPriceValue * 100).toFixed(2))
 
-            if (oldValue !== newPrice.price) {
-              const direction = newPrice.price > oldValue ? 'up' : 'down'
-              animatePrice(newPrice.pair, oldValue, newPrice.price, direction)
+            if (currentPrice.displayPrice !== newPriceValue) {
+              const direction = newPriceValue > currentPrice.displayPrice ? 'up' : 'down'
+              animatePrice(currentPrice.pair, currentPrice.displayPrice, newPriceValue, direction)
+
               return {
-                ...newPrice,
-                displayPrice: oldValue,
+                pair: currentPrice.pair,
+                price: newPriceValue,
+                change: percentageChange,
+                displayPrice: currentPrice.displayPrice,
                 priceDirection: direction
               }
             }
 
             return {
-              ...newPrice,
-              displayPrice: newPrice.price,
-              priceDirection: 'none' as const
+              ...currentPrice,
+              price: newPriceValue,
+              change: percentageChange
             }
           })
+        })
+
+        setPrevPrices({
+          'EUR/USD': data.eurusd,
+          'GOLD': data.gold,
+          'SILVER': data.silver
         })
       }
     } catch (error) {
@@ -120,7 +109,7 @@ const Hero = () => {
 
   useEffect(() => {
     fetchPrices()
-    const interval = setInterval(fetchPrices, 10000)
+    const interval = setInterval(fetchPrices, 2000)
     return () => clearInterval(interval)
   }, [])
 
@@ -194,7 +183,7 @@ const Hero = () => {
                   {priceData.pair.includes('/')
                     ? priceData.displayPrice.toFixed(4)
                     : priceData.displayPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                  } {priceData.change >= 0 ? '+' : ''}{priceData.change}%
+                  } {priceData.change >= 0 ? '▲' : '▼'} {priceData.change >= 0 ? '+' : ''}{priceData.change}%
                 </span>
               </div>
             ))}
