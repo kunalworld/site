@@ -66,7 +66,7 @@ const Contact = () => {
           </a>
 
           <a href="https://t.me/OfficialKunalKumar" target="_blank" rel="noopener noreferrer" className="info-card">
-            <div className="info-icon">✈️</div>
+            <div className="info-icon">💬</div>
             <h3>Telegram</h3>
             <p>Available for quick queries</p>
           </a>
