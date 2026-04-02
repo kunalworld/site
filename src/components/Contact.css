@@ -21,6 +21,9 @@
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .info-card:hover {

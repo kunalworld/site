@@ -59,23 +59,17 @@ const Contact = () => {
 
       <div className="contact-content">
         <div className="contact-info">
-          <div className="info-card">
+          <a href="mailto:contact@kunalworld.in" className="info-card">
             <div className="info-icon">📧</div>
             <h3>Email</h3>
             <p>contact@kunalworld.in</p>
-          </div>
+          </a>
 
-          <div className="info-card">
-            <div className="info-icon">💬</div>
-            <h3>WhatsApp</h3>
+          <a href="https://t.me/OfficialKunalKumar" target="_blank" rel="noopener noreferrer" className="info-card">
+            <div className="info-icon">✈️</div>
+            <h3>Telegram</h3>
             <p>Available for quick queries</p>
-          </div>
-
-          <div className="info-card">
-            <div className="info-icon">📱</div>
-            <h3>Social Media</h3>
-            <p>Connect on trading platforms</p>
-          </div>
+          </a>
 
           <div className="cta-box">
             <h3>Why Choose Me?</h3>
