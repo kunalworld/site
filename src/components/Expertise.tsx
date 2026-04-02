@@ -22,15 +22,6 @@ const Expertise = () => {
     }
   ]
 
-  const skills = [
-    { skill: 'Technical Analysis', level: 95 },
-    { skill: 'Risk Management', level: 98 },
-    { skill: 'Trading Psychology', level: 92 },
-    { skill: 'Chart Patterns', level: 90 },
-    { skill: 'Price Action', level: 94 },
-    { skill: 'Market Structure', level: 93 }
-  ]
-
   return (
     <section id="expertise" className="expertise">
       <div className="section-header">
@@ -54,26 +45,6 @@ const Expertise = () => {
                   {market.pairs.map((pair, idx) => (
                     <span key={idx} className="pair-badge">{pair}</span>
                   ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="skills-section">
-          <h3 className="subsection-title">Core Competencies</h3>
-          <div className="skills-list">
-            {skills.map((item, index) => (
-              <div key={index} className="skill-item">
-                <div className="skill-header">
-                  <span className="skill-name">{item.skill}</span>
-                  <span className="skill-percentage">{item.level}%</span>
-                </div>
-                <div className="skill-bar">
-                  <div
-                    className="skill-progress"
-                    style={{ width: `${item.level}%` }}
-                  ></div>
                 </div>
               </div>
             ))}
