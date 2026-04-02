@@ -62,7 +62,8 @@
   transition: all 0.3s ease;
 }
 
-.footer-links button {
+.footer-links button,
+.footer-links a {
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.7);
@@ -71,9 +72,12 @@
   padding: 0;
   text-align: left;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.footer-links button:hover {
+.footer-links button:hover,
+.footer-links a:hover {
   color: var(--color-accent);
   transform: translateX(4px);
 }

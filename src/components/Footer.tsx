@@ -39,9 +39,21 @@ const Footer = () => {
           <h4 className="footer-title">Connect</h4>
           <ul className="footer-links">
             <li>Email: contact@kunalworld.in</li>
-            <li>Trading Community</li>
-            <li>Educational Resources</li>
-            <li>Market Updates</li>
+            <li>
+              <a href="https://t.me/KunalWorldOfficial" target="_blank" rel="noopener noreferrer">
+                Trading Community
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/KunalWorldOfficial" target="_blank" rel="noopener noreferrer">
+                Educational Resources
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/KunalWorldOfficial" target="_blank" rel="noopener noreferrer">
+                Market Updates
+              </a>
+            </li>
           </ul>
         </div>
       </div>
